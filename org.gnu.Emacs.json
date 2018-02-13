@@ -1,0 +1,49 @@
+{
+    "app-id": "org.gnu.Emacs",
+    "runtime": "org.gnome.Platform",
+    "runtime-version": "3.26",
+    "sdk": "org.gnome.Sdk",
+    "command": "emacs",
+    "rename-appdata-file": "emacs.appdata.xml",
+    "rename-desktop-file": "emacs.desktop",
+    "rename-icon": "emacs",
+    "finish-args": [
+	"--socket=x11",
+	"--socket=wayland",
+	"--share=network",
+	"--share=ipc",
+	"--filesystem=host"
+    ],
+    "modules": [
+
+	{
+	    "name": "git",
+	    "buildsystem" : "autotools",
+	    "config-opts" : ["--prefix=/app"],
+	    "sources": [
+	      {
+		  "type": "archive",
+		  "url": "https://www.kernel.org/pub/software/scm/git/git-2.9.5.tar.xz",
+		  "sha256": "a4bea37ecb9a3fb5c0c8ef18c2f7eeaf8ccbcfec91f72f3bccfc6bf72a3e3902"
+	      }
+	  ]
+	},
+
+	{
+	    "name": "emacs",
+	    "buildsystem": "autotools",
+	    "config-opts": ["--with-dbus", "--with-gif", "--with-jpeg", "--with-png", "--with-rsvg",
+			    "--with-tiff", "--with-xft", "--with-xpm", "--with-x-toolkit=gtk3", "--with-gpm=no",
+			    "--with-xwidgets", "--with-modules", "--prefix=/app"],
+	    "make-args": ["RUN_TEMACS= setarch `arch` -R ./temacs"],
+	    "sources": [
+		{
+		    "type": "git",
+		    "tag": "emacs-26.0.91",
+		    "commit": "752fba992b793a74d202c9cfc3e1a92fd458e748",
+		    "url": "git://git.sv.gnu.org/emacs.git"
+		}
+	    ]
+	}      
+    ]
+}
