@@ -17,6 +17,30 @@
     "modules": [
 
 	{
+	    "name": "zlib",
+	    "buildsystem" : "autotools",
+	    "config-opts" : ["--prefix=/app"],
+	    "sources": [
+	      {
+		  "type": "archive",
+		  "url": "https://www.zlib.net/zlib-1.2.11.tar.xz",
+		  "sha256": "4ff941449631ace0d4d203e3483be9dbc9da454084111f97ea0a2114e19bf066"
+	      }
+	  ]
+	},
+	{
+	    "name": "openssh",
+	    "buildsystem" : "autotools",
+	    "config-opts" : ["--prefix=/app"],
+	    "sources": [
+	      {
+		  "type": "archive",
+		  "url": "https://cloudflare.cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-7.6p1.tar.gz",
+		  "sha256": "a323caeeddfe145baaa0db16e98d784b1fbc7dd436a6bf1f479dfd5cd1d21723"
+	      }
+	  ]
+	},	
+	{
 	    "name": "git",
 	    "buildsystem" : "autotools",
 	    "config-opts" : ["--prefix=/app"],
