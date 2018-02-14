@@ -12,7 +12,8 @@
 	"--socket=wayland",
 	"--share=network",
 	"--share=ipc",
-	"--filesystem=host"
+	"--filesystem=host",
+	"--filesystem=/tmp/"
     ],
     "modules": [
 
