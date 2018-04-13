@@ -1,0 +1,79 @@
+{
+    "name": "pdftools",
+    "modules": [
+	{
+	    "name": "openjpeg",
+	    "buildsystem" : "cmake",
+	    "config-opts" : ["-DCMAKE_INSTALL_PREFIX:PATH=/app"],
+	    "sources": [
+		{
+		    "type": "archive",
+		    "url": "https://github.com/uclouvain/openjpeg/archive/v2.3.0.tar.gz",
+		    "sha256": "3dc787c1bb6023ba846c2a0d9b1f6e179f1cd255172bde9eb75b01f1e6c7d71a"
+		}
+	    ]
+	},
+	
+	{
+	    "name": "poppler",
+	    "buildsystem" : "cmake",
+	    "config-opts" : ["-DCMAKE_INSTALL_PREFIX:PATH=/app", "-DENABLE_XPDF_HEADERS=ON"],
+	    "sources": [
+		{
+		    "type": "archive",
+		    "url": "https://poppler.freedesktop.org/poppler-0.63.0.tar.xz",
+		    "sha256": "27cc8addafc791e1a26ce6acc2b490926ea73a4f89196dd8a7742cff7cf8a111"
+		}
+	    ]
+	},
+	{
+	    "name": "perl",
+	    "no-autogen": true,
+	    "config-opts": [
+		"-des",
+		"-Duseshrplib"
+	    ],
+	    "build-options": {
+		"cflags": "-fPIC",
+		"ldflags": "-fpic",
+		"prefix": "/app",
+		"no-debuginfo": true
+	    },
+	    "cleanup": [
+		"/man",
+		"/lib/perl5/site_perl",
+		"*.pod",
+		"*.h"
+	    ],
+	    "sources": [
+		{
+		    "type": "archive",
+		    "url": "https://www.cpan.org/src/5.0/perl-5.26.1.tar.gz",
+		    "sha256": "e763aa485e8dc1a70483dbe6d615986bbf32b977f38016480d68c99237e701dd"
+		},
+		{
+		    "type": "script",
+		    "dest-filename": "configure",
+		    "commands": [
+			"exec ./configure.gnu $@"
+		    ]
+		}
+	    ]
+	},
+
+	{
+	    "name": "pdf-tools",
+	    "buildsystem" : "simple",
+	    "build-commands" : ["make",
+				"mkdir /app/share/emacs/site-lisp/pdftools",
+				"cp -r pdf-tools-0.80/* /app/share/emacs/site-lisp/pdftools/"],
+	    "sources": [
+		{
+		    "type": "archive",
+		    "url": "https://github.com/politza/pdf-tools/archive/v0.80.tar.gz",
+		    "sha256": "663d22ce4a56c1eb75a329fa4ab5f77d92c030fcc1deaf4ec95b24356cf3351a"
+		}
+	    ]
+	}	
+    ]
+}
